@@ -1,0 +1,6 @@
+@RecoleccionResiduosApi_HostAddress = http://localhost:5057
+
+GET {{RecoleccionResiduosApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

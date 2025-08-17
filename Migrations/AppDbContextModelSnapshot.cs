@@ -17,16 +17,251 @@ namespace RecoleccionResiduosApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
 
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Canje", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CodigoCanje")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DescuentoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FechaCanje")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaUtilizacion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PuntosUtilizados")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Utilizado")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodigoCanje")
+                        .IsUnique();
+
+                    b.HasIndex("DescuentoId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Canjes");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.ConfiguracionZona", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FrecuenciaDias")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<TimeSpan>("HoraFin")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LocalidadId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("PesoMaximoKg")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("PesoMinimoKg")
+                        .HasColumnType("REAL");
+
+                    b.Property<bool>("RequiereValidacionFoto")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TipoResiduoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TipoResiduoId");
+
+                    b.HasIndex("LocalidadId", "TipoResiduoId")
+                        .IsUnique();
+
+                    b.ToTable("ConfiguracionesZona");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Descuento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CantidadDisponible")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EsPorcentaje")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PuntosRequeridos")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("ValorDescuento")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Descuentos");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.EmpresaRecolectora", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LocalidadId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocalidadId");
+
+                    b.ToTable("EmpresasRecolectoras");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Localidad", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ciudad")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Departamento")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Localidades");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Notificacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Enviada")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FechaEnvio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NumeroWhatsApp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("RecoleccionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RespuestaApi")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoNotificacion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecoleccionId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Notificaciones");
+                });
+
             modelBuilder.Entity("RecoleccionResiduosApi.Models.Recoleccion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("EmpresaRecolectoraId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("EsValida")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaRecoleccion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Observaciones")
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("PesoKg")
@@ -38,6 +273,9 @@ namespace RecoleccionResiduosApi.Migrations
                     b.Property<string>("Subtipo")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("SubtipoResiduoId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("TipoResiduoId")
                         .HasColumnType("INTEGER");
 
@@ -46,6 +284,10 @@ namespace RecoleccionResiduosApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaRecolectoraId");
+
+                    b.HasIndex("SubtipoResiduoId");
+
                     b.HasIndex("TipoResiduoId");
 
                     b.HasIndex("UsuarioId");
@@ -53,11 +295,93 @@ namespace RecoleccionResiduosApi.Migrations
                     b.ToTable("Recolecciones");
                 });
 
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.ReglaValidacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Condicion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("LocalidadId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PuntosBonus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PuntosPenalizacion")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TipoRegla")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TipoResiduoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocalidadId");
+
+                    b.HasIndex("TipoResiduoId");
+
+                    b.ToTable("ReglasValidacion");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.SubtipoResiduo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PuntosAdicionales")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TipoResiduoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TipoResiduoId");
+
+                    b.ToTable("SubtiposResiduo");
+                });
+
             modelBuilder.Entity("RecoleccionResiduosApi.Models.TipoResiduo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -77,9 +401,21 @@ namespace RecoleccionResiduosApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("LocalidadId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -89,6 +425,13 @@ namespace RecoleccionResiduosApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PasswordResetToken")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("PasswordResetTokenExpires")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Puntos")
                         .HasColumnType("INTEGER");
 
@@ -96,17 +439,104 @@ namespace RecoleccionResiduosApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("LocalidadId");
+
+                    b.HasIndex("PasswordResetToken");
 
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Canje", b =>
+                {
+                    b.HasOne("RecoleccionResiduosApi.Models.Descuento", "Descuento")
+                        .WithMany("Canjes")
+                        .HasForeignKey("DescuentoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RecoleccionResiduosApi.Models.Usuario", "Usuario")
+                        .WithMany("Canjes")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Descuento");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.ConfiguracionZona", b =>
+                {
+                    b.HasOne("RecoleccionResiduosApi.Models.Localidad", "Localidad")
+                        .WithMany()
+                        .HasForeignKey("LocalidadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecoleccionResiduosApi.Models.TipoResiduo", "TipoResiduo")
+                        .WithMany()
+                        .HasForeignKey("TipoResiduoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Localidad");
+
+                    b.Navigation("TipoResiduo");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.EmpresaRecolectora", b =>
+                {
+                    b.HasOne("RecoleccionResiduosApi.Models.Localidad", "Localidad")
+                        .WithMany("EmpresasRecolectoras")
+                        .HasForeignKey("LocalidadId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Localidad");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Notificacion", b =>
+                {
+                    b.HasOne("RecoleccionResiduosApi.Models.Recoleccion", "Recoleccion")
+                        .WithMany("Notificaciones")
+                        .HasForeignKey("RecoleccionId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RecoleccionResiduosApi.Models.Usuario", "Usuario")
+                        .WithMany("Notificaciones")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recoleccion");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("RecoleccionResiduosApi.Models.Recoleccion", b =>
                 {
+                    b.HasOne("RecoleccionResiduosApi.Models.EmpresaRecolectora", "EmpresaRecolectora")
+                        .WithMany("Recolecciones")
+                        .HasForeignKey("EmpresaRecolectoraId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RecoleccionResiduosApi.Models.SubtipoResiduo", "SubtipoResiduo")
+                        .WithMany("Recolecciones")
+                        .HasForeignKey("SubtipoResiduoId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("RecoleccionResiduosApi.Models.TipoResiduo", "TipoResiduo")
                         .WithMany("Recolecciones")
                         .HasForeignKey("TipoResiduoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("RecoleccionResiduosApi.Models.Usuario", "Usuario")
@@ -115,18 +545,93 @@ namespace RecoleccionResiduosApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("EmpresaRecolectora");
+
+                    b.Navigation("SubtipoResiduo");
+
                     b.Navigation("TipoResiduo");
 
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("RecoleccionResiduosApi.Models.TipoResiduo", b =>
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.ReglaValidacion", b =>
                 {
-                    b.Navigation("Recolecciones");
+                    b.HasOne("RecoleccionResiduosApi.Models.Localidad", "Localidad")
+                        .WithMany()
+                        .HasForeignKey("LocalidadId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RecoleccionResiduosApi.Models.TipoResiduo", "TipoResiduo")
+                        .WithMany()
+                        .HasForeignKey("TipoResiduoId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Localidad");
+
+                    b.Navigation("TipoResiduo");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.SubtipoResiduo", b =>
+                {
+                    b.HasOne("RecoleccionResiduosApi.Models.TipoResiduo", "TipoResiduo")
+                        .WithMany("Subtipos")
+                        .HasForeignKey("TipoResiduoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TipoResiduo");
                 });
 
             modelBuilder.Entity("RecoleccionResiduosApi.Models.Usuario", b =>
                 {
+                    b.HasOne("RecoleccionResiduosApi.Models.Localidad", "Localidad")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("LocalidadId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Localidad");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Descuento", b =>
+                {
+                    b.Navigation("Canjes");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.EmpresaRecolectora", b =>
+                {
+                    b.Navigation("Recolecciones");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Localidad", b =>
+                {
+                    b.Navigation("EmpresasRecolectoras");
+
+                    b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Recoleccion", b =>
+                {
+                    b.Navigation("Notificaciones");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.SubtipoResiduo", b =>
+                {
+                    b.Navigation("Recolecciones");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.TipoResiduo", b =>
+                {
+                    b.Navigation("Recolecciones");
+
+                    b.Navigation("Subtipos");
+                });
+
+            modelBuilder.Entity("RecoleccionResiduosApi.Models.Usuario", b =>
+                {
+                    b.Navigation("Canjes");
+
+                    b.Navigation("Notificaciones");
+
                     b.Navigation("Recolecciones");
                 });
 #pragma warning restore 612, 618

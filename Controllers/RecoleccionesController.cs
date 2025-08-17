@@ -22,18 +22,28 @@ namespace RecoleccionResiduosApi.Controllers
 
         [Authorize]
         [HttpPost("programar")]
-        public async Task<IActionResult> Programar([FromBody] Recoleccion reco)
+        public async Task<IActionResult> Programar([FromBody] ProgramarRecoleccionRequest req)
         {
-            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+            var usuarioId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var usuario = await _context.Usuarios.FindAsync(usuarioId);
             if (usuario == null) return NotFound("Usuario no encontrado");
 
-            var tipo = await _context.TiposResiduo.FindAsync(reco.TipoResiduoId);
+            var tipo = await _context.TiposResiduo.FindAsync(req.TipoResiduoId);
             if (tipo == null) return BadRequest("Tipo de residuo no válido");
 
-            reco.UsuarioId = usuarioId;
-            reco.EsValida = true;
-            reco.PuntosGanados = tipo.Puntos;
+            var reco = new Recoleccion
+            {
+                UsuarioId = usuarioId,
+                TipoResiduoId = req.TipoResiduoId,
+                Subtipo = req.Subtipo,
+                PesoKg = req.PesoEstimado,
+                Fecha = req.FechaSolicitud,
+                Observaciones = req.Observaciones,
+                EsValida = true,
+                PuntosGanados = tipo.Puntos,
+                Estado = "Programada" // opcionalmente explícito
+            };
+
             usuario.Puntos += tipo.Puntos;
 
             _context.Recolecciones.Add(reco);
@@ -52,6 +62,8 @@ namespace RecoleccionResiduosApi.Controllers
 
             return Ok(dto);
         }
+
+
 
         [Authorize]
         [HttpGet("historial")]

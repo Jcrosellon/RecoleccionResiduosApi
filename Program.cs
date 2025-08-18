@@ -70,6 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
+app.Logger.LogInformation("SMTP host: {Host}", app.Configuration["Smtp:Host"]);
 
 if (app.Environment.IsDevelopment())
 {

@@ -10,8 +10,8 @@ namespace RecoleccionResiduosApi.DTOs
         public int FrecuenciaDias { get; set; }
         public double PesoMinimoKg { get; set; }
         public double PesoMaximoKg { get; set; }
-        public TimeSpan HoraInicio { get; set; }
-        public TimeSpan HoraFin { get; set; }
+        public string HoraInicio { get; set; } = "06:00"; // ← string
+        public string HoraFin { get; set; } = "18:00";    // ← string
         public bool RequiereValidacionFoto { get; set; }
         public bool Activa { get; set; }
     }

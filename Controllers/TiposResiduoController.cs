@@ -18,19 +18,26 @@ namespace RecoleccionResiduosApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+       // Controllers/TiposResiduoController.cs
+[HttpGet]
+public async Task<IActionResult> GetAll()
+{
+    var tipos = await _context.TiposResiduo
+        .AsNoTracking()
+        .OrderBy(t => t.Nombre)
+        .Select(t => new RecoleccionResiduosApi.DTOs.TipoResiduoDto
         {
-            var tipos = await _context.TiposResiduo
-                .Select(t => new
-                {
-                    t.Id,
-                    t.Nombre,
-                    t.Puntos
-                })
-                .ToListAsync();
+            Id = t.Id,
+            Nombre = t.Nombre,
+            Descripcion = t.Descripcion ?? string.Empty,
+            PuntosPorKg = t.Puntos,   // si te sirve exponerlo
+            Activo = t.Activo
+        })
+        .ToListAsync();
 
-            return Ok(tipos);
-        }
+    return Ok(tipos);
+}
+
 
         [Authorize(Roles = "Administrador")]
         [HttpPut("{id}")]

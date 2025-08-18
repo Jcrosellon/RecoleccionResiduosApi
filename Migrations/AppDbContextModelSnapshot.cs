@@ -204,11 +204,23 @@ namespace RecoleccionResiduosApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Asunto")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("Enviada")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ErrorMensaje")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("FechaEnvio")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Intentos")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Mensaje")
                         .IsRequired()
